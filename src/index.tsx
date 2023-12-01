@@ -1,4 +1,4 @@
-import { requireNativeComponent, NativeModules, ViewStyle } from 'react-native';
+import { NativeModules } from 'react-native';
 import { PlayerEvents } from './events/PlayerEvents';
 import { AdEvents } from './events/AdEvents';
 import { AnalyticsEvents } from './events/AnalyticsEvents';
@@ -41,13 +41,6 @@ const { KalturaPlayerModule } = NativeModules;
 
 const POSITION_UNSET: number = -1;
 var debugLogs = false;
-
-interface KalturaPlayerProps {
-  style: ViewStyle;
-}
-
-export const KalturaPlayer =
-  requireNativeComponent<KalturaPlayerProps>('KalturaPlayerView');
 
 export class KalturaPlayerAPI {
   /**

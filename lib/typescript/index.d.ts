@@ -1,13 +1,8 @@
-import { ViewStyle } from 'react-native';
 import { PlayerEvents } from './events/PlayerEvents';
 import { AdEvents } from './events/AdEvents';
 import { AnalyticsEvents } from './events/AnalyticsEvents';
 import { PLAYER_TYPE, MEDIA_FORMAT, MEDIA_ENTRY_TYPE, DRM_SCHEME, PLAYER_PLUGIN, PLAYER_RESIZE_MODES, WAKEMODE, SUBTITLE_STYLE, SUBTITLE_PREFERENCE, VIDEO_CODEC, AUDIO_CODEC, VR_INTERACTION_MODE, LOG_LEVEL } from './consts';
 export { PlayerEvents, AdEvents, AnalyticsEvents, PLAYER_TYPE, MEDIA_FORMAT, MEDIA_ENTRY_TYPE, DRM_SCHEME, PLAYER_PLUGIN, PLAYER_RESIZE_MODES, WAKEMODE, SUBTITLE_STYLE, SUBTITLE_PREFERENCE, VIDEO_CODEC, AUDIO_CODEC, VR_INTERACTION_MODE, LOG_LEVEL, };
-interface KalturaPlayerProps {
-    style: ViewStyle;
-}
-export declare const KalturaPlayer: import("react-native").HostComponent<KalturaPlayerProps>;
 export declare class KalturaPlayerAPI {
     /**
      * This method creates a Player instance internally (Basic, OVP/OTT Player)
