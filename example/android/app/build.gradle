@@ -71,13 +71,14 @@ def enableProguardInReleaseBuilds = false
 def jscFlavor = 'org.webkit:android-jsc:+'
 
 android {
+    ndkVersion rootProject.ext.ndkVersion
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
+    namespace "com.example.reactnativekalturaplayer"
     defaultConfig {
         applicationId "com.example.reactnativekalturaplayer"
         minSdkVersion rootProject.ext.minSdkVersion

@@ -26,7 +26,7 @@ if linkage != nil
 end
 
 target 'KalturaPlayerExample' do
-  use_frameworks!
+  use_frameworks! :linkage => :static
   config = use_native_modules!
   use_modular_headers!
 
@@ -42,7 +42,8 @@ target 'KalturaPlayerExample' do
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable the next line.
-    :flipper_configuration => flipper_config,
+    # :flipper_configuration => flipper_config,
+    
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
@@ -62,11 +63,6 @@ target 'KalturaPlayerExample' do
 
   ###################
 
-  target 'KalturaPlayerExampleTests' do
-    inherit! :complete
-    # Pods for testing
-  end
-
   post_install do |installer|
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
@@ -77,7 +73,7 @@ target 'KalturaPlayerExample' do
 
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
         config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
       end
     end
