@@ -1,6 +1,4 @@
 import { requireNativeComponent, NativeModules, ViewStyle } from 'react-native';
-import React from 'react';
-import PropTypes from 'prop-types';
 import { PlayerEvents } from './events/PlayerEvents';
 import { AdEvents } from './events/AdEvents';
 import { AnalyticsEvents } from './events/AnalyticsEvents';
@@ -39,7 +37,6 @@ export {
   LOG_LEVEL,
 };
 
-const RNKalturaPlayer = requireNativeComponent('KalturaPlayerView');
 const { KalturaPlayerModule } = NativeModules;
 
 const POSITION_UNSET: number = -1;
@@ -49,34 +46,8 @@ interface KalturaPlayerProps {
   style: ViewStyle;
 }
 
-export class KalturaPlayer extends React.Component<KalturaPlayerProps> {
-  nativeComponentRef: any;
-
-  static propTypes: {
-    style: object;
-  };
-
-  componentDidMount() {
-    printConsoleLog('componentDidMount from Library.');
-  }
-
-  componentWillUnmount() {
-    printConsoleLog('componentWillUnmount from Library');
-  }
-
-  render() {
-    return (
-      <RNKalturaPlayer
-        {...this.props}
-        ref={(nativeRef) => (this.nativeComponentRef = nativeRef)}
-      />
-    );
-  }
-}
-
-KalturaPlayer.propTypes = {
-  style: PropTypes.object,
-};
+export const KalturaPlayer =
+  requireNativeComponent<KalturaPlayerProps>('KalturaPlayerView');
 
 export class KalturaPlayerAPI {
   /**
@@ -121,10 +92,7 @@ export class KalturaPlayerAPI {
    */
   static loadMedia = async (id: string, asset: string) => {
     if (!id) {
-      printConsoleLog(
-        `loadMedia, invalid id = ${id}`,
-        LogType.ERROR
-      );
+      printConsoleLog(`loadMedia, invalid id = ${id}`, LogType.ERROR);
       return;
     }
 
@@ -351,7 +319,9 @@ export class KalturaPlayerAPI {
    * Update the Resize Mode
    */
   static updateResizeMode = (mode: PLAYER_RESIZE_MODES) => {
-    printConsoleLog('Calling Native method updateSurfaceAspectRatioResizeMode()');
+    printConsoleLog(
+      'Calling Native method updateSurfaceAspectRatioResizeMode()'
+    );
     KalturaPlayerModule.updateResizeMode(mode);
   };
 
@@ -436,7 +406,7 @@ export class KalturaPlayerAPI {
    * @param positionMs - relevant image for given player position.
    * @returns ThumbnailInfo JSON object
    */
-   static requestThumbnailInfo = async (positionMs: number) => {
+  static requestThumbnailInfo = async (positionMs: number) => {
     printConsoleLog('requestThumbnailInfo');
     if (positionMs < 0) {
       printConsoleLog(`Invalid positionMs = ${positionMs}`, LogType.ERROR);
@@ -447,16 +417,19 @@ export class KalturaPlayerAPI {
 
   /**
    * Enable the console logs for the JS bridge and Player.
-   * By default it is disabled. 
-   * 
+   * By default it is disabled.
+   *
    * For logLevel options {@link LOG_LEVEL}
-   * 
+   *
    * @param enabled enable the debug logs. Just set it to `false` to disable all the logs.
    * @param logLevel Default is `LOG_LEVEL.DEBUG` if set to `LOG_LEVEL.OFF` will turn off the logs.
-   * 
+   *
    * @returns if `enabled` is `null` then don't do anything
    */
-  static enableDebugLogs = (enabled: boolean, logLevel: LOG_LEVEL = LOG_LEVEL.DEBUG) => {
+  static enableDebugLogs = (
+    enabled: boolean,
+    logLevel: LOG_LEVEL = LOG_LEVEL.DEBUG
+  ) => {
     if (enabled == null || logLevel == null) {
       return;
     }
@@ -543,7 +516,9 @@ async function isLive() {
 
 async function getThumbnailInfo(position: number) {
   try {
-    const thumbnailInfo = await KalturaPlayerModule.requestThumbnailInfo(position);
+    const thumbnailInfo = await KalturaPlayerModule.requestThumbnailInfo(
+      position
+    );
     printConsoleLog(`getThumbnailInfo ${JSON.stringify(thumbnailInfo)}`);
     return thumbnailInfo;
   } catch (exception) {

@@ -1,5 +1,4 @@
 import { ViewStyle } from 'react-native';
-import React from 'react';
 import { PlayerEvents } from './events/PlayerEvents';
 import { AdEvents } from './events/AdEvents';
 import { AnalyticsEvents } from './events/AnalyticsEvents';
@@ -8,15 +7,7 @@ export { PlayerEvents, AdEvents, AnalyticsEvents, PLAYER_TYPE, MEDIA_FORMAT, MED
 interface KalturaPlayerProps {
     style: ViewStyle;
 }
-export declare class KalturaPlayer extends React.Component<KalturaPlayerProps> {
-    nativeComponentRef: any;
-    static propTypes: {
-        style: object;
-    };
-    componentDidMount(): void;
-    componentWillUnmount(): void;
-    render(): JSX.Element;
-}
+export declare const KalturaPlayer: import("react-native").HostComponent<KalturaPlayerProps>;
 export declare class KalturaPlayerAPI {
     /**
      * This method creates a Player instance internally (Basic, OVP/OTT Player)
